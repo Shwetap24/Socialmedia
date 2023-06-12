@@ -9,33 +9,11 @@ stages:
     - job: firstjob
       steps:
       - bash: echo Build First Job
-    - job: SecondJob
-      steps:
-      - bash: echo Build Second Job
-- stage: DevDeploy
-  variables:
-    Sports: Dev
-  dependsOn: Build
-  jobs:
-    - job: DevFist
-      steps:
-      - bash: echo $(Sports)DeployJob
-    - job: DevSeccond
-      steps:
-      - bash: echo Dev Second Job
-- stage: QADeploy
-  variables:
-     Sports: 
-  dependsOn: Build
-  jobs:
-    - job: QAJob
-      steps:
-      - bash: echo $(Sports)QADeploy
-- stage: ProdDeploy
-  dependsOn:
-  - DevDeploy
-  - QADeploy
-  jobs:
-    - job: ProductionsJob
-      steps:
-      - bash: echo $(Sports)ProdDeploy
+      - bash: echo $(pipelineLevelVariable)
+      - bash: echo $(Build.BuildNumber)
+      - bash: echo $(Build.BuildId)
+      - bash: echo $(Build.SourceBranchName)
+      - bash: echo $(Build.SourcesDirectory)
+      - bash: echo $(System.DefaultWorkingDirectory)
+      - bash: ls -r  $(System.DefaultWorkingDirectory)
+      - bash: echo $(Build.ArtifactStagingDirectory)
